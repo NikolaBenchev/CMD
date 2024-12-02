@@ -1,8 +1,12 @@
-#include "AbstractFile.h"
-#include "Node.hpp"
+#include<cstddef>
+#include<string>
+#include<vector>
+#include "./AbstractFile.h"
 
 class Folder : public AbstractFile {
 	public:
+		Folder(std::string name, std::string path) : AbstractFile(name, path) {};
+
 		void add(AbstractFile* newFile);
 
 		void remove(const std::string& name);
@@ -10,6 +14,8 @@ class Folder : public AbstractFile {
 		std::string getName();
 
 		AbstractFile* getContent();
+
+		size_t getSize();
 	private:
-		Node<AbstractFile*> content;
+		std::vector<AbstractFile*> innerFiles;
 };

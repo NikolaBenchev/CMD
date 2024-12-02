@@ -12,37 +12,41 @@ class Node {
 			this->value = value;
 		}
 
-		Node(const Node& other) : value(other.value) {
+		Node(const Node<T>& other) : value(other.value) {
 			copyFrom(other);
 		}
 
-		Node& operator=(const Node& other) : value(other.value) {
+		Node<T>& operator=(const Node<T>& other) {
+			this->value = other->value;
 			free();
 			copyFrom(other);
 			return *this;
 		}
 	
-		Node(Node&& other) : value(other.value), childNodes(other.childNodes) {
+		Node(Node<T>&& other) : value(other.value), childNodes(other.childNodes) {
 			delete other;
 		}
 
-		Node& operator=(Node&& other): value(other.value), childNodes(other.childNodes) {
+		Node<T>& operator=(Node<T>&& other) {
+			this->value = other->value;
+			this->childNodes = other->childNodes;
 			delete other;
+			return *this;
 		}
 
-		//TODO: add(const vector<Node*> toAdd)
-		void add(const Node* toAdd) {
-			childNodes.push_back(toAdd);
+		//TODO: add(const vector<Node<T>*> toAdd)
+		void add(Node<T>* toAdd) {
+			this->childNodes.push_back(toAdd);
 		}
 
-		void remove(const Node* toRemove) {
+		void remove(const Node<T>* toRemove) {
 			for(
-					std::vector<Node*>::iterator it = childNodes.begin(); 
-					it != childNodes.end();
+					typename std::vector<Node<T>*>::iterator it = this->childNodes.begin(); 
+					it != this->childNodes.end();
 					it++
 			   ) {
 				if(it == toRemove) {
-					childNodes.erase(it);
+					this->childNodes.erase(it);
 					break;
 				}
 			}
@@ -52,23 +56,23 @@ class Node {
 			return this->value;
 		}
 
-		vector<Node*> getChildNodes() {
+		std::vector<Node<T>*> getChildNodes() {
 			return this->childNodes;
 		}
 	private:
 		T value;
-		vector<Node*> childNodes;
+		typename std::vector<Node<T>*> childNodes;
 
 		void free() {
-			for(Node* currChild : this->childNodes) {
+			for(Node<T>* currChild : this->childNodes) {
 				delete currChild;
 			}
-			childNodes.clear();
+			this->childNodes.clear();
 		}
 		
-		void copyFrom(Node& other) {
-			for(Node* currChild : other->childNodes) {
-				childNodes.push_back(currChild);
+		void copyFrom(Node<T>& other) {
+			for(Node<T>* currChild : other->childNodes) {
+				this->childNodes.push_back(currChild);
 			}
 		}
 };

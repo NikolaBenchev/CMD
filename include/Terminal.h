@@ -1,15 +1,17 @@
+#include "./Folder.h"
+
 class Terminal {
 	public:
 		Terminal();
 		~Terminal();
-		Terminal(const Terminal& other);
-		Terminal& operator=(const Terminal& other);
-		static void run() const; 
+		Terminal(const Terminal& other) = delete;
+		void operator=(const Terminal& other) = delete;
+		static void run(); 
 	private:
 		static bool isRunning;
 		static Folder* currentFolder;
 		static Folder* root;
 		
-		void processCommand(std::string command);
-		void free();
+		static void processCommand(std::string command);
+		static void free();
 };
