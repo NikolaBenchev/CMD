@@ -1,10 +1,17 @@
 #include "../include/Terminal.h";
 
-Terminal::~Terminal() {
-	delete this->currFolder;
-	delete this->root;
+Terminal::Terminal() {
+	this->root = new Folder();
+	this->currentFolder = this->root;	
 }
 
+Terminal::~Terminal() {
+	free();
+}
+
+Terminal::Terminal(const Terminal& other) = delete; 
+
+Terminal& operator=(Terminal& other) = delete; 
 
 void Terminal::run() const {
 	while(this->isRunning) {
@@ -16,4 +23,9 @@ void Terminal::run() const {
 }
 
 void Terminal::processCommand(std::string command) {
+}
+
+void free() {
+	delete this->root;
+	delete this->currentFolder;
 }
