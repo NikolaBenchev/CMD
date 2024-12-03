@@ -14,10 +14,6 @@ std::string AbstractFile::getName() const {
 	return this->name;
 }
 
-size_t AbstractFile::getSize() const {
-	return this->size;
-}
-
 std::string AbstractFile::getPath() const {
 	return this->path + this->name; 
 }

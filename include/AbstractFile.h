@@ -1,3 +1,5 @@
+#pragma once
+
 #include<string>
 #include<cstddef>
 
@@ -11,7 +13,7 @@ class AbstractFile {
 		std::string getName() const;
 		
 		std::string getPath() const; 
-	private:
+	protected:
 		std::string name;
 		size_t size;
 		std::string path;

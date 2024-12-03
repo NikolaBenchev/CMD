@@ -3,8 +3,9 @@
 #include "../include/Terminal.h"
 
 Terminal::Terminal() {
-	this->root = new Folder(".", "");
-	this->currentFolder = this->root;	
+	root = new Folder(".", "");
+	currentFolder = root;	
+	isRunning = true;
 }
 
 Terminal::~Terminal() {
@@ -14,14 +15,10 @@ Terminal::~Terminal() {
 void Terminal::run() {
 	while(isRunning) {
 		std::cout << "Terminal:" << currentFolder->getPath() << "$ ";
-		std::string command;
-		std::cin >> command;
-		processCommand(command);
+		std::string commandLine;
+		std::getline(std::cin, commandLine);
+		std::cout << commandLine << std::endl;	
 	}
-}
-
-void Terminal::processCommand(std::string command) {
-	
 }
 
 void Terminal::free() {
