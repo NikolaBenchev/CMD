@@ -6,7 +6,7 @@
 
 class File : public AbstractFile{
 	public:
-		File(std::string name, std::string path) : AbstractFile(name, path) {};
+		File(std::string name, AbstractFile* parent) : AbstractFile(name, parent) {};
 		size_t getSize(); 
 	private:
 		std::string content;

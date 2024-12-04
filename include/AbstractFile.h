@@ -5,7 +5,7 @@
 
 class AbstractFile {
 	public:
-		AbstractFile(std::string name, std::string path);
+		AbstractFile(std::string name, AbstractFile* parent);
 		virtual size_t getSize() = 0;
 
 		void setName(std::string value);
@@ -17,4 +17,5 @@ class AbstractFile {
 		std::string name;
 		size_t size;
 		std::string path;
+		AbstractFile* parent;
 };

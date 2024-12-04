@@ -1,9 +1,9 @@
 #include "../include/AbstractFile.h"
 #include<string>
 
-AbstractFile::AbstractFile(std::string name, std::string path) {
+AbstractFile::AbstractFile(std::string name, AbstractFile* parent) {
 	this->name = name;
-	this->path = path;
+	this->parent = parent; 
 }
 
 void AbstractFile::setName(std::string value) {
@@ -15,5 +15,7 @@ std::string AbstractFile::getName() const {
 }
 
 std::string AbstractFile::getPath() const {
-	return this->path + this->name; 
+	if(!this->parent)
+		return this->name;
+	return this->parent->getPath() + '/' + this->name; 
 }
